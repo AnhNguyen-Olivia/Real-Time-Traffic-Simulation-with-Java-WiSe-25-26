@@ -39,9 +39,9 @@ Name                              | Role                 | Description |
 ----------------------------------|----------------------|-------------|
 Pham Tran Minh Anh                | Developer, GUI Designer            | Writes Java source code, including GUI and logic. Design the layout, appearance, and user controls. Writes README. |
 Nguyen Thuy Anh                   | Developer                          | Writes Java source code, including SUMO connection and step simulation. |
-Nguyen Ho Tuyet Phuong            | Document Writer                    | Creates diagram. |
+Dieu Ngoc Thien An                | Document Writer                    | Creates diagram. |
 Huynh Bao Tran                    | Tester                             | Tests simulation features and fixes bugs. |
-Dieu Ngoc Thien An                | Developer                          | Creates logic for vehicles, traffic lights, and simulation rules. |
+Nguyen Ho Tuyet Phuong            | Developer                          | Creates logic for vehicles, traffic lights, and simulation rules. |
 
 ---
 
