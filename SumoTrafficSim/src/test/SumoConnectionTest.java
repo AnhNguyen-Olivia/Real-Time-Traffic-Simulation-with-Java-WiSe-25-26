@@ -7,10 +7,10 @@ public class SumoConnectionTest {
     public static void main(String[] args) throws Exception {
 
         // Path to SUMO binary (GUI recommended for testing)
-        String sumoBinary = "C:/Program Files (x86)/Eclipse/Sumo/bin/sumo-gui.exe";
+        String sumoBinary = "E:/Sumo/bin/sumo.exe";
 
         // Path to your SUMO config file
-        String configFile = "C:/Users/ASUS/Documents/SumoTraffic/map.sumocfg";
+        String configFile = "E:/Real-Time-Traffic-Simulation-with-Java-WiSe-25-26/testing.sumocfg";
 
         // Create TraCI connection
         SumoTraciConnection conn = new SumoTraciConnection(sumoBinary, configFile);
@@ -26,6 +26,7 @@ public class SumoConnectionTest {
         for (int step = 0; step < 1000; step++) {
             conn.do_timestep();
             System.out.println("Step: " + step);
+            Thread.sleep(200);
         }
 
         conn.close();
