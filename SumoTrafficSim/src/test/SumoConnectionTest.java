@@ -10,7 +10,7 @@ public class SumoConnectionTest {
         String sumoBinary = "E:/Sumo/bin/sumo.exe";
 
         // Path to your SUMO config file
-        String configFile = "E:/Real-Time-Traffic-Simulation-with-Java-WiSe-25-26/testing.sumocfg";
+        String configFile = "E:/Real-Time-Traffic-Simulation-with-Java-WiSe-25-26/SumoConfig/testing.sumocfg";
 
         // Create TraCI connection
         SumoTraciConnection conn = new SumoTraciConnection(sumoBinary, configFile);

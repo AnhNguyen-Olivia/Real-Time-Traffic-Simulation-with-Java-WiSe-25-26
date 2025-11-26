@@ -7,7 +7,7 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         setTitle("Traffic Simulator");
         setSize(1400, 850);
-        // setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Make a layered pane
@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
 
         setContentPane(layeredPane);
         setVisible(true);
-        setResizable(false);
+        setResizable(true);
     }
 
     public static void main(String[] args) {

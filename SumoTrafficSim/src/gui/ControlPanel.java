@@ -31,6 +31,10 @@ public class ControlPanel extends JPanel {
         add(createButton("TOGGLE TRAFFIC LIGHTS", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
         add(Box.createRigidArea(new Dimension(0, 32)));
 
+
+
+
+
         // Add glue between major sections
         add(Box.createVerticalGlue());
 
@@ -56,6 +60,7 @@ public class ControlPanel extends JPanel {
         add(Box.createVerticalGlue());
     }
 
+    // Create button with center-aligned label
     private JButton createButton(String text, Color bg, Color fg, java.awt.event.ActionListener action) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
