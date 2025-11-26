@@ -1,14 +1,14 @@
 package wrapper;
-
 import it.polito.appeal.traci.SumoTraciConnection;
-import de.tudresden.sumo.cmd.Edge;
 import java.util.List;
 
-public class Edge {
+import de.tudresden.sumo.cmd.Edge;
+
+public class EdgeWrapper {
     private final String id;
     private final SumoTraciConnection connection;
     
-    public Edge(String id, SumoTraciConnection connection) {
+    public EdgeWrapper(String id, SumoTraciConnection connection) {
         this.id = id;
         this.connection = connection;
     }
@@ -18,17 +18,18 @@ public class Edge {
     public double getAverageSpeed() throws Exception {
         return (double) connection.do_job_get(Edge.getLastStepMeanSpeed(id));
     }
-    public double getLength() throws Exception {
-        return (double) connection.do_job_get(Edge.getLength(id));
-    }
+    // public double getLength() throws Exception {
+    //     return (double) connection.do_job_get(Edge.getLength(id));
+    // }
 
+    @SuppressWarnings("unchecked")
     public List<String> getVehicleIds() throws Exception {
         return (List<String>) connection.do_job_get(Edge.getLastStepVehicleIDs(id));
     }
 
-    public double getMaxSpeed() throws Exception {
-        return (double) connection.do_job_get(Edge.getMaxSpeed(id));
-    }
+    // public double getMaxSpeed() throws Exception {
+    //     return (double) connection.do_job_get(Edge.getMaxSpeed(id));
+    // }
 
     public boolean isCongested(double speedThreshold) throws Exception {
         return getAverageSpeed() < speedThreshold;
@@ -44,8 +45,8 @@ public class Edge {
 
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Edge)) return false;
-        Edge other = (Edge) obj;
+        if (!(obj instanceof EdgeWrapper)) return false;
+        EdgeWrapper other = (EdgeWrapper) obj;
         return id.equals(other.id);
     }
 

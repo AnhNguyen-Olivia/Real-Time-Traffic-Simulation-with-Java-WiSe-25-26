@@ -4,25 +4,27 @@ import it.polito.appeal.traci.SumoTraciConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EdgeManager {
+
+public class EdgeManagerWrapper {
     private final SumoTraciConnection connection;
     
-    public EdgeManager(SumoTraciConnection connection) {
+    public EdgeManagerWrapper(SumoTraciConnection connection) {
         this.connection = connection;
     }
 
-    public Edge getEdge(String id) {
-        return new Edge(id, connection);
+    public EdgeWrapper getEdge(String id) {
+        return new EdgeWrapper(id, connection);
     }
 
+    @SuppressWarnings("unchecked")
     public List<String> getAllEdgeIds() throws Exception {
         return (List<String>) connection.do_job_get(
             de.tudresden.sumo.cmd.Edge.getIDList());
     }
 
-    public List<Edge> getAllEdges() throws Exception {
+    public List<EdgeWrapper> getAllEdges() throws Exception {
         List<String> edgeIds = getAllEdgeIds();
-        List<Edge> edges = new ArrayList<>();
+        List<EdgeWrapper> edges = new ArrayList<>();
         
         for (String edgeId : edgeIds) {
             edges.add(getEdge(edgeId));
@@ -31,16 +33,16 @@ public class EdgeManager {
         return edges;
     }
 
-    public List<Edge> getCongestedEdges(double speedThreshold) throws Exception {
+    public List<EdgeWrapper> getCongestedEdges(double speedThreshold) throws Exception {
         if (speedThreshold < 0) {
             throw new IllegalArgumentException("Speed threshold must be non-negative");
         }
         
-        List<Edge> congestedEdges = new ArrayList<>();
+        List<EdgeWrapper> congestedEdges = new ArrayList<>();
         List<String> edgeIds = getAllEdgeIds();
         
         for (String edgeId : edgeIds) {
-            Edge edge = getEdge(edgeId);
+            EdgeWrapper edge = getEdge(edgeId);
             if (edge.isCongested(speedThreshold)) {
                 congestedEdges.add(edge);
             }
@@ -49,16 +51,16 @@ public class EdgeManager {
         return congestedEdges;
     }
 
-    public List<Edge> getBusyEdges(int vehicleCountThreshold) throws Exception {
+    public List<EdgeWrapper> getBusyEdges(int vehicleCountThreshold) throws Exception {
         if (vehicleCountThreshold < 0) {
             throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
         }
         
-        List<Edge> busyEdges = new ArrayList<>();
+        List<EdgeWrapper> busyEdges = new ArrayList<>();
         List<String> edgeIds = getAllEdgeIds();
         
         for (String edgeId : edgeIds) {
-            Edge edge = getEdge(edgeId);
+            EdgeWrapper edge = getEdge(edgeId);
             if (edge.getVehicleCount() >= vehicleCountThreshold) {
                 busyEdges.add(edge);
             }

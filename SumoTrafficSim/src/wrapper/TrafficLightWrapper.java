@@ -3,11 +3,11 @@ package wrapper;
 import it.polito.appeal.traci.SumoTraciConnection;
 import de.tudresden.sumo.cmd.Trafficlight;
 
-public class TrafficLight {
+public class TrafficLightWrapper {
     private final String id;
     private final SumoTraciConnection connection;
 
-    public TrafficLight(String id, SumoTraciConnection connection) {
+    public TrafficLightWrapper(String id, SumoTraciConnection connection) {
         this.id = id;
         this.connection = connection;
     }
@@ -61,13 +61,13 @@ public class TrafficLight {
     }
 
     public String toString() {
-        return "TrafficLight[id=" + id + "]";
+        return "trafficlight[id=" + id + "]";
     }
 
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof TrafficLight)) return false;
-        TrafficLight other = (TrafficLight) obj;
+        if (!(obj instanceof TrafficLightWrapper)) return false;
+        TrafficLightWrapper other = (TrafficLightWrapper) obj;
         return id.equals(other.id);
     }
 

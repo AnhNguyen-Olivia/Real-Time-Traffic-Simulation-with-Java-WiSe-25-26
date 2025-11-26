@@ -1,14 +1,15 @@
 package wrapper;
 
 import it.polito.appeal.traci.SumoTraciConnection;
-import de.tudresden.sumo.cmd.Lane;
 import java.util.List;
 
-public class Lane {
+import de.tudresden.sumo.cmd.Lane;
+
+public class LaneWrapper {
     private final String id;
     private final SumoTraciConnection connection;
     
-    public Lane(String id, SumoTraciConnection connection) {
+    public LaneWrapper(String id, SumoTraciConnection connection) {
         this.id = id;
         this.connection = connection;
     }
@@ -25,6 +26,7 @@ public class Lane {
         return (double) connection.do_job_get(Lane.getLength(id));
     }
     
+    @SuppressWarnings("unchecked")
     public List<String> getVehicleIds() throws Exception {
         return (List<String>) connection.do_job_get(Lane.getLastStepVehicleIDs(id));
     }
@@ -61,12 +63,12 @@ public class Lane {
         return "Lane[id=" + id + "]";
     }
 
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Lane)) return false;
-        Lane other = (Lane) obj;
-        return id.equals(other.id);
-    }
+    // public boolean equals(Object obj) {
+    //     if (this == obj) return true;
+    //     if (!(obj instanceof Lane)) return false;
+    //     LaneWrapper other = (Lane) obj;
+    //     return id.equals(other.id);
+    // }
 
     public int hashCode() {
         return id.hashCode();

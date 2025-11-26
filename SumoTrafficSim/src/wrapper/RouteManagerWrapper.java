@@ -4,25 +4,27 @@ import it.polito.appeal.traci.SumoTraciConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RouteManager {
+
+public class RouteManagerWrapper {
     private final SumoTraciConnection connection;
     
-    public RouteManager(SumoTraciConnection connection) {
+    public RouteManagerWrapper(SumoTraciConnection connection) {
         this.connection = connection;
     }
 
-    public Route getRoute(String id) {
-        return new Route(id, connection);
+    public RouteWrapper getRoute(String id) {
+        return new RouteWrapper(id, connection);
     }
 
+    @SuppressWarnings("unchecked")
     public List<String> getAllRouteIds() throws Exception {
         return (List<String>) connection.do_job_get(
             de.tudresden.sumo.cmd.Route.getIDList());
     }
     
-    public List<Route> getAllRoutes() throws Exception {
+    public List<RouteWrapper> getAllRoutes() throws Exception {
         List<String> routeIds = getAllRouteIds();
-        List<Route> routes = new ArrayList<>();
+        List<RouteWrapper> routes = new ArrayList<>();
         
         for (String routeId : routeIds) {
             routes.add(getRoute(routeId));
@@ -31,16 +33,16 @@ public class RouteManager {
         return routes;
     }
 
-    public List<Route> getRoutesContainingEdge(String edgeId) throws Exception {
+    public List<RouteWrapper> getRoutesContainingEdge(String edgeId) throws Exception {
         if (edgeId == null || edgeId.isEmpty()) {
             throw new IllegalArgumentException("Edge ID cannot be null or empty");
-        }
+        }   
         
-        List<Route> matchingRoutes = new ArrayList<>();
+        List<RouteWrapper> matchingRoutes = new ArrayList<>();
         List<String> routeIds = getAllRouteIds();
         
         for (String routeId : routeIds) {
-            Route route = getRoute(routeId);
+            RouteWrapper route = getRoute(routeId);
             if (route.containsEdge(edgeId)) {
                 matchingRoutes.add(route);
             }
@@ -49,16 +51,16 @@ public class RouteManager {
         return matchingRoutes;
     }
 
-    public List<Route> getLongRoutes(int minEdgeCount) throws Exception {
+    public List<RouteWrapper> getLongRoutes(int minEdgeCount) throws Exception {
         if (minEdgeCount < 0) {
             throw new IllegalArgumentException("Minimum edge count must be non-negative");
         }
         
-        List<Route> longRoutes = new ArrayList<>();
+        List<RouteWrapper> longRoutes = new ArrayList<>();
         List<String> routeIds = getAllRouteIds();
         
         for (String routeId : routeIds) {
-            Route route = getRoute(routeId);
+            RouteWrapper route = getRoute(routeId);
             if (route.getEdgeCount() >= minEdgeCount) {
                 longRoutes.add(route);
             }

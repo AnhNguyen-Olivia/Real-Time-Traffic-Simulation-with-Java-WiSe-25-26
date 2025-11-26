@@ -2,11 +2,11 @@ package wrapper;
 
 import it.polito.appeal.traci.SumoTraciConnection;
 
-public class vehicle {
+public class VehicleWrapper {
     private String id;
     private SumoTraciConnection conn;
 
-    public vehicle(String id, SumoTraciConnection conn){
+    public VehicleWrapper(String id, SumoTraciConnection conn){
         this.id = id;
         this.conn = conn;
     }
