@@ -1,13 +1,13 @@
 package wrapper;
-
 import it.polito.appeal.traci.SumoTraciConnection;
 import de.tudresden.sumo.cmd.Vehicle;
+import de.tudresden.sumo.objects.SumoColor;
 
 public class VehicleWrapper {
     private String id;
-    private SumoTraciConnection conn;
+    private SumoTraciConnection connection;
 
-    public VehicleWrapper(String id, SumoTraciConnection conn){
+    public VehicleWrapper(String id, SumoTraciConnection connection){
         this.id = id;
         this.connection = connection;
     }
@@ -55,11 +55,15 @@ public class VehicleWrapper {
     }
 
     public void setColor(int red, int green, int blue, int alpha) throws Exception {
-        if (red < 0 || red > 255 || green < 0 || green > 255 || 
-            blue < 0 || blue > 255 || alpha < 0 || alpha > 255) {
+        if (red < 0 || red > 255 ||
+            green < 0 || green > 255 ||
+            blue < 0 || blue > 255 ||
+            alpha < 0 || alpha > 255) {
             throw new IllegalArgumentException("Color values must be between 0 and 255");
         }
-        connection.do_job_set(Vehicle.setColor(id, red, green, blue, alpha));
+
+        SumoColor sumoColor = new SumoColor(red, green, blue, alpha);
+        connection.do_job_set(Vehicle.setColor(id, sumoColor));
     }
 
     public double getAngle() throws Exception {
@@ -83,8 +87,8 @@ public class VehicleWrapper {
 
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Vehicle)) return false;
-        Vehicle other = (Vehicle) obj;
+        if (!(obj instanceof VehicleWrapper)) return false;
+        VehicleWrapper other = (VehicleWrapper) obj;
         return id.equals(other.id);
     }
 
