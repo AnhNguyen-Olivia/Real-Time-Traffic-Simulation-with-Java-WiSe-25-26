@@ -1,0 +1,43 @@
+package wrapper;
+
+import it.polito.appeal.traci.SumoTraciConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TrafficLightManager {
+    private final SumoTraciConnection connection;
+
+    public TrafficLightManager(SumoTraciConnection connection) {
+        this.connection = connection;
+    }
+
+    public TrafficLight getTrafficLight(String id) {
+        return new TrafficLight(id, connection);
+    }
+
+    public List<String> getAllTrafficLightIds() throws Exception {
+        return (List<String>) connection.do_job_get(
+            de.tudresden.sumo.cmd.Trafficlight.getIDList());
+    }
+
+    public List<TrafficLight> getAllTrafficLights() throws Exception {
+        List<String> trafficLightIds = getAllTrafficLightIds();
+        List<TrafficLight> trafficLights = new ArrayList<>();
+        
+        for (String tlId : trafficLightIds) {
+            trafficLights.add(getTrafficLight(tlId));
+        }
+        
+        return trafficLights;
+    }
+    public void setAllTrafficLightsPhase(int phaseIndex) throws Exception {
+        if (phaseIndex < 0) {
+            throw new IllegalArgumentException("Phase index cannot be negative");
+        }       
+        List<String> trafficLightIds = getAllTrafficLightIds();
+        for (String tlId : trafficLightIds) {
+            TrafficLight tl = getTrafficLight(tlId);
+            tl.setPhase(phaseIndex);
+        }
+    }
+}

@@ -1,38 +1,55 @@
 package wrapper;
+
 import it.polito.appeal.traci.SumoTraciConnection;
+import de.tudresden.sumo.cmd.Edge;
+import java.util.List;
 
-public class edge {
-    private String id;
-    private SumoTraciConnection conn;
+public class Edge {
+    private final String id;
+    private final SumoTraciConnection connection;
     
-    public edge(String id, SumoTraciConnection conn) {
+    public Edge(String id, SumoTraciConnection connection) {
         this.id = id;
-        this.conn = conn;
+        this.connection = connection;
     }
-    
-    public int getVehicleCount() throws Exception {         //Gets the number of vehicles currently on this edge
-        return (int) conn.do_job_get(de.tudresden.sumo.cmd.Edge.getLastStepVehicleNumber(id));
+    public int getVehicleCount() throws Exception {
+        return (int) connection.do_job_get(Edge.getLastStepVehicleNumber(id));
     }
-    
+    public double getAverageSpeed() throws Exception {
+        return (double) connection.do_job_get(Edge.getLastStepMeanSpeed(id));
+    }
+    public double getLength() throws Exception {
+        return (double) connection.do_job_get(Edge.getLength(id));
+    }
 
-    public double getAverageSpeed() throws Exception {     //Gets average speed of vehicles on this edge
-        return (double) conn.do_job_get(de.tudresden.sumo.cmd.Edge.getLastStepMeanSpeed(id));
+    public List<String> getVehicleIds() throws Exception {
+        return (List<String>) connection.do_job_get(Edge.getLastStepVehicleIDs(id));
     }
-    
-    public double getLength() throws Exception {        //Gets the length of this edge in meters
-        return (double) conn.do_job_get(de.tudresden.sumo.cmd.Edge.getLength(id));
+
+    public double getMaxSpeed() throws Exception {
+        return (double) connection.do_job_get(Edge.getMaxSpeed(id));
     }
-    
-    public java.util.ArrayList<String> getVehicleIds() throws Exception {   //Gets list of vehicle IDs currently on this edge
-        return (java.util.ArrayList<String>) conn.do_job_get(
-            de.tudresden.sumo.cmd.Edge.getLastStepVehicleIDs(id));
+
+    public boolean isCongested(double speedThreshold) throws Exception {
+        return getAverageSpeed() < speedThreshold;
     }
-    
-    public double getMaxSpeed() throws Exception {  //Gets maximum allowed speed on this edge
-        return (double) conn.do_job_get(de.tudresden.sumo.cmd.Edge.getMaxSpeed(id));
-    }
-       
-    public String getId() {     //Gets the edge ID
+
+    public String getId() {
         return id;
+    }
+
+    public String toString() {
+        return "Edge[id=" + id + "]";
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Edge)) return false;
+        Edge other = (Edge) obj;
+        return id.equals(other.id);
+    }
+
+    public int hashCode() {
+        return id.hashCode();
     }
 }

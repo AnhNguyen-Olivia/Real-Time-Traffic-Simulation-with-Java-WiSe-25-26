@@ -1,0 +1,69 @@
+package wrapper;
+
+import it.polito.appeal.traci.SumoTraciConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EdgeManager {
+    private final SumoTraciConnection connection;
+    
+    public EdgeManager(SumoTraciConnection connection) {
+        this.connection = connection;
+    }
+
+    public Edge getEdge(String id) {
+        return new Edge(id, connection);
+    }
+
+    public List<String> getAllEdgeIds() throws Exception {
+        return (List<String>) connection.do_job_get(
+            de.tudresden.sumo.cmd.Edge.getIDList());
+    }
+
+    public List<Edge> getAllEdges() throws Exception {
+        List<String> edgeIds = getAllEdgeIds();
+        List<Edge> edges = new ArrayList<>();
+        
+        for (String edgeId : edgeIds) {
+            edges.add(getEdge(edgeId));
+        }
+        
+        return edges;
+    }
+
+    public List<Edge> getCongestedEdges(double speedThreshold) throws Exception {
+        if (speedThreshold < 0) {
+            throw new IllegalArgumentException("Speed threshold must be non-negative");
+        }
+        
+        List<Edge> congestedEdges = new ArrayList<>();
+        List<String> edgeIds = getAllEdgeIds();
+        
+        for (String edgeId : edgeIds) {
+            Edge edge = getEdge(edgeId);
+            if (edge.isCongested(speedThreshold)) {
+                congestedEdges.add(edge);
+            }
+        }
+        
+        return congestedEdges;
+    }
+
+    public List<Edge> getBusyEdges(int vehicleCountThreshold) throws Exception {
+        if (vehicleCountThreshold < 0) {
+            throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
+        }
+        
+        List<Edge> busyEdges = new ArrayList<>();
+        List<String> edgeIds = getAllEdgeIds();
+        
+        for (String edgeId : edgeIds) {
+            Edge edge = getEdge(edgeId);
+            if (edge.getVehicleCount() >= vehicleCountThreshold) {
+                busyEdges.add(edge);
+            }
+        }
+        
+        return busyEdges;
+    }
+}
