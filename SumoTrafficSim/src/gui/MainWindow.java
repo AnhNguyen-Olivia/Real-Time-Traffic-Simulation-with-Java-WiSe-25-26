@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
 
         setContentPane(layeredPane);
         setVisible(true);
-        setResizable(true);
+        setResizable(false);
     }
 
     public static void main(String[] args) {

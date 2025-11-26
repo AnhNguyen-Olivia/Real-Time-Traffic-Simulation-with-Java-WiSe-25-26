@@ -2,6 +2,7 @@ package wrapper;
 import it.polito.appeal.traci.SumoTraciConnection;
 import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoPosition2D;
 
 public class VehicleWrapper {
     private String id;
@@ -23,8 +24,8 @@ public class VehicleWrapper {
         connection.do_job_set(Vehicle.setSpeed(id, speed));
     }
 
-    public double[] getPosition() throws Exception {
-        return (double[]) connection.do_job_get(Vehicle.getPosition(id));
+    public SumoPosition2D getPosition() throws Exception {
+        return (SumoPosition2D) connection.do_job_get(Vehicle.getPosition(id));
     }
 
     public String getRoadId() throws Exception {
