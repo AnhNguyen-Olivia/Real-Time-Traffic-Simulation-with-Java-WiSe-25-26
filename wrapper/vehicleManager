@@ -1,14 +1,83 @@
 package wrapper;
+
 import it.polito.appeal.traci.SumoTraciConnection;
+import java.util.ArrayList;
+import java.util.List;
 
-public class vehicleManager{
-    private SumoTraciConnection conn;
+public class VehicleManager {
+    private final SumoTraciConnection connection;
 
-    public vehicleManager(SumoTraciConnection conn){
-        this.conn = conn;
+    public VehicleManager(SumoTraciConnection connection) {
+        this.connection = connection;
     }
 
-    public vehicle get(String id){
-        return new vehicle(id, conn);
+    public Vehicle getVehicle(String id) {
+        return new Vehicle(id, connection);
+    }
+
+    public List<String> getAllVehicleIds() throws Exception {
+        return (List<String>) connection.do_job_get(
+            de.tudresden.sumo.cmd.Vehicle.getIDList());
+    }
+
+    public List<Vehicle> getAllVehicles() throws Exception {
+        List<String> vehicleIds = getAllVehicleIds();
+        List<Vehicle> vehicles = new ArrayList<>();
+        
+        for (String vehicleId : vehicleIds) {
+            vehicles.add(getVehicle(vehicleId));
+        }
+        
+        return vehicles;
+    }        
+        List<String> vehicleIds = getAllVehicleIds();
+        
+        for (String vehicleId : vehicleIds) {
+            Vehicle vehicle = getVehicle(vehicleId);
+            if (vehicle.getSpeed() < speedThreshold) {
+                slowVehicles.add(vehicle);
+            }
+        }
+        
+        return slowVehicles;
+    }
+
+    public List<Vehicle> getVehiclesOnEdge(String edgeId) throws Exception {
+        if (edgeId == null || edgeId.isEmpty()) {
+            throw new IllegalArgumentException("Edge ID cannot be null or empty");
+        }
+        
+        List<Vehicle> vehiclesOnEdge = new ArrayList<>();
+        List<String> vehicleIds = getAllVehicleIds();
+        
+        for (String vehicleId : vehicleIds) {
+            Vehicle vehicle = getVehicle(vehicleId);
+            if (edgeId.equals(vehicle.getRoadId())) {
+                vehiclesOnEdge.add(vehicle);
+            }
+        }
+        
+        return vehiclesOnEdge;
+    }
+
+    public List<Vehicle> getVehiclesOnRoute(String routeId) throws Exception {
+        if (routeId == null || routeId.isEmpty()) {
+            throw new IllegalArgumentException("Route ID cannot be null or empty");
+        }
+        
+        List<Vehicle> vehiclesOnRoute = new ArrayList<>();
+        List<String> vehicleIds = getAllVehicleIds();
+        
+        for (String vehicleId : vehicleIds) {
+            Vehicle vehicle = getVehicle(vehicleId);
+            if (routeId.equals(vehicle.getRouteId())) {
+                vehiclesOnRoute.add(vehicle);
+            }
+        }
+        
+        return vehiclesOnRoute;
+    }
+    public int getVehicleCount() throws Exception {
+        return getAllVehicleIds().size();
     }
 }
