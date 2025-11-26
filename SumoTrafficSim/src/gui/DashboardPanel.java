@@ -1,27 +1,25 @@
 package gui;
 
 import core.SimulationEngine;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class DashboardPanel extends JPanel {
 
-    private final JLabel timeLbl = new JLabel("Time: 0.0");
     private final JLabel vehLbl = new JLabel("Vehicles: 0");
+    private final JLabel timeLbl = new JLabel("Time: 0.0");
 
     public DashboardPanel(MapPanel map) {
+        setPreferredSize(new Dimension(250, 60));
+        setOpaque(false);
 
-        setPreferredSize(new Dimension(180, 850));
-        setBackground(new Color(245, 246, 250));
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        setLayout(new FlowLayout(FlowLayout.LEFT, 40, 10)); // Horizontal spacing
 
-        title(timeLbl);
-        title(vehLbl);
+        styleLabel(vehLbl);
+        styleLabel(timeLbl);
 
-        add(timeLbl);
         add(vehLbl);
+        add(timeLbl);
 
         new Timer(150, e -> update(map.getEngine())).start();
     }
@@ -31,7 +29,9 @@ public class DashboardPanel extends JPanel {
         vehLbl.setText("Vehicles: " + engine.getVehicles().size());
     }
 
-    private void title(JLabel lbl) {
+    private void styleLabel(JLabel lbl) {
         lbl.setFont(new Font("Arial", Font.BOLD, 20));
+        lbl.setForeground(Color.BLACK);
+        lbl.setOpaque(false);
     }
 }
