@@ -10,8 +10,8 @@ public class DashboardPanel extends JPanel {
     private final JLabel timeLbl = new JLabel("Time: 0.0");
 
     public DashboardPanel(MapPanel map) {
-        setPreferredSize(new Dimension(250, 60)); // Wider for both labels
-        setOpaque(false); // Makes the panel transparent
+        setPreferredSize(new Dimension(250, 60));
+        setOpaque(false);
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 40, 10)); // Horizontal spacing
 
@@ -32,6 +32,6 @@ public class DashboardPanel extends JPanel {
     private void styleLabel(JLabel lbl) {
         lbl.setFont(new Font("Arial", Font.BOLD, 20));
         lbl.setForeground(Color.BLACK);
-        lbl.setOpaque(false); // Ensures label background is also transparent
+        lbl.setOpaque(false);
     }
 }

@@ -8,10 +8,7 @@ public class ControlPanel extends JPanel {
     public ControlPanel(MapPanel map) {
         setPreferredSize(new Dimension(220, 650));
         setBackground(Color.LIGHT_GRAY);
-
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        // Add vertical glue to push everything to the center
         add(Box.createVerticalGlue());
 
         // Simulation Controls header
@@ -31,11 +28,6 @@ public class ControlPanel extends JPanel {
         add(createButton("TOGGLE TRAFFIC LIGHTS", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
         add(Box.createRigidArea(new Dimension(0, 32)));
 
-
-
-
-
-        // Add glue between major sections
         add(Box.createVerticalGlue());
 
         // Map Editor Tools header
@@ -45,7 +37,7 @@ public class ControlPanel extends JPanel {
         add(mapToolsHeader);
         add(Box.createRigidArea(new Dimension(0, 18)));
 
-        // Map editor tool buttons - spaced out
+        // Map editor tool buttons
         add(createButton("ROAD", Color.BLACK, Color.WHITE, e -> map.setTool(MapPanel.Tool.ROAD)));
         add(Box.createRigidArea(new Dimension(0, 12)));
         add(createButton("INTERSECTION", Color.BLACK, Color.WHITE, e -> map.setTool(MapPanel.Tool.INTERSECTION)));
@@ -56,11 +48,9 @@ public class ControlPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 12)));
         add(createButton("DELETE", new Color(226, 70, 60), Color.WHITE, e -> map.setTool(MapPanel.Tool.DELETE)));
 
-        // Glue at the bottom for final padding
         add(Box.createVerticalGlue());
     }
 
-    // Create button with center-aligned label
     private JButton createButton(String text, Color bg, Color fg, java.awt.event.ActionListener action) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
