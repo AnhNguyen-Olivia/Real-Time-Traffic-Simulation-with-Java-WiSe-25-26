@@ -19,10 +19,30 @@ public class SimulationEngine {
     
     public List<Intersection> intersections = new ArrayList<>();
 
-//    public SimulationEngine() {
-//        // One traffic light at intersection
-//        trafficLights.add(new TrafficLight(600, 350));
-//    }
+    public SimulationEngine() {
+    	// Four corners of the cross
+        Node left  = new Node(200, 300);
+        Node right = new Node(900, 300);
+        Node top   = new Node(550, 100);
+        Node bottom= new Node(550, 580);
+
+        // Add them
+        nodes.add(left);
+        nodes.add(right);
+        nodes.add(top);
+        nodes.add(bottom);
+
+        // Horizontal road
+        roads.add(new Road(left, right));
+
+        // Vertical road
+        roads.add(new Road(top, bottom));
+
+//        // Add intersection traffic lights
+//        trafficLights.add(new TrafficLight(550, 300));
+    	// One traffic light at intersection
+    	trafficLights.add(new TrafficLight(600, 350));
+    }
 
     public void start() { running = true; }
     public void stop() { running = false; }
@@ -87,4 +107,10 @@ public class SimulationEngine {
 
         return closest;
     }
+    
+
+    
+
 }
+
+

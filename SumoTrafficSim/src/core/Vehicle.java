@@ -17,4 +17,10 @@ public class Vehicle {
         this.color = c;
         this.t = 0;
     }
+
+	public Vehicle(double x2, double y2, double speed2) {
+		this.x = x2;
+		this.y = y2;
+		this.speed = speed2;
+	}
 }
