@@ -7,7 +7,8 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         setTitle("Traffic Simulator");
-        setSize(1400, 850);
+        //setSize(1400, 850);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setBackground(new Color(245, 246, 250));
@@ -17,9 +18,9 @@ public class MainWindow extends JFrame {
         ControlPanel controlPanel = new ControlPanel(mapPanel);
         DashboardPanel dashboard = new DashboardPanel(mapPanel);
 
-        // Add components
-        add(controlPanel, BorderLayout.WEST);
+        // Add components      
         add(mapPanel, BorderLayout.CENTER);
+        add(controlPanel, BorderLayout.WEST);
         add(dashboard, BorderLayout.EAST);
 
         setVisible(true);

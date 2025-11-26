@@ -1,3 +1,6 @@
+package wrapper;
+import it.polito.appeal.traci.SumoTraciConnection;
+
 public class edge {
     private String id;
     private SumoTraciConnection conn;
