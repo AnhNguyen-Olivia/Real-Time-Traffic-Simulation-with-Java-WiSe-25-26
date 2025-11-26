@@ -6,6 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="img"/>
 	<classpathentry kind="lib" path="lib/TraaS.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

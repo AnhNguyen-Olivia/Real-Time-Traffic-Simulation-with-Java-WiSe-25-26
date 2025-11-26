@@ -31,10 +31,6 @@ public class ControlPanel extends JPanel {
         add(createButton("TOGGLE TRAFFIC LIGHTS", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
         add(Box.createRigidArea(new Dimension(0, 32)));
 
-
-
-
-
         // Add glue between major sections
         add(Box.createVerticalGlue());
 
