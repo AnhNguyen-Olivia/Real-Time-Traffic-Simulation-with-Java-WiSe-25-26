@@ -138,7 +138,7 @@ Real-Time-Traffic-Simulation-with-Java-WiSe-25-26
 
 - For demostation the connection see the [SumoConnectionDemo.mkv](Demo_video/SumoConnectionDemo.mkv).
 
-- For GUI demo see the [GUI_Demo.mkv](Demo_video/GUI_Demo.mkv).
+- For GUI demo see the [Demo_GUI.mkv](Demo_video/Demo_GUI.mkv).
 
 ## License
 
