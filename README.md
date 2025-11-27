@@ -89,8 +89,8 @@ It simulates:
 
 #### Milestone 1 — Design & Prototype
 
-- [ ] Project overview (1 - 2 pages)
-- [ ] Architecture diagram
+- [x] Project overview (1 - 2 pages)
+- [x] Architecture diagram
 - [x] Class Design for TraaS wrapper (Vehicle, TrafficLight, etc.)
 - [x] GUI Mockups (map view, control panels, dashboard)
 - [x] SUMO Connection Demo (list traffic lights, step simulation)
