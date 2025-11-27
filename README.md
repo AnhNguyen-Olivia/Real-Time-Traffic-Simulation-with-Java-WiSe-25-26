@@ -55,7 +55,7 @@ It simulates:
 
 ### Languages
 
-- [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white&style=flat-square)](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html)[![v11.0.28](https://img.shields.io/badge/v11.0.28-555?style=flat-square)](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html)
+- [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white&style=flat-square)](https://www.oracle.com/java/technologies/downloads/)[![version 25](https://img.shields.io/badge/version_25-555?style=flat-square)](https://www.oracle.com/java/technologies/downloads/)
 
 ### Tools and IDE
 
