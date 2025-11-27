@@ -41,22 +41,21 @@ public class MapPanel extends JPanel {
     }
 
     public MapPanel() {
-        setBackground(new Color(102, 255, 102));
+        setBackground(new Color(0, 204, 0));
 
-        // Load car image once
-        try {
-            carImage = ImageIO.read(new File("img/car.jpg"));  // Adjust path as needed
-        } catch (IOException e) {
-            System.err.println("Failed to load car image.");
-            e.printStackTrace();
-        }
-        
-        try {
-            trafficLightImage = ImageIO.read(new File("img/greenlight.jpg"));
-        } catch (IOException | NullPointerException e) {
-            System.err.println("Failed to load traffic light image.");
-            e.printStackTrace();
-        }
+//        try {
+//            carImage = ImageIO.read(new File("img/car.jpg"));  // Adjust path as needed
+//        } catch (IOException e) {
+//            System.err.println("Failed to load car image.");
+//            e.printStackTrace();
+//        }
+//        
+//        try {
+//            trafficLightImage = ImageIO.read(new File("img/greenlight.jpg"));
+//        } catch (IOException | NullPointerException e) {
+//            System.err.println("Failed to load traffic light image.");
+//            e.printStackTrace();
+//        }
 
         // Smooth animation: 30 FPS
         new Timer(33, e -> updateAndRepaint()).start();
@@ -189,18 +188,15 @@ public class MapPanel extends JPanel {
         }
     }
 
-
     private void drawLights(Graphics2D g) {
-        int lightSize = 30; // Adjust size as needed
-
         for (TrafficLight t : engine.trafficLights) {
-            if (trafficLightImage != null) {
-                g.drawImage(trafficLightImage, (int)t.x - lightSize / 2, (int)t.y - lightSize / 2, lightSize, lightSize, this);
-            } else {
-                // fallback: draw colored circles
-                g.setColor(t.state.equals("G") ? Color.GREEN : Color.RED);
-                g.fillOval((int)t.x - 10, (int)t.y - 10, 20, 20);
-            }
+            int size = 14;
+
+            g.setColor(Color.BLACK);
+            g.fillRoundRect(t.x - size/2 - 2, t.y - size/2 - 2, size + 4, size + 4, 6, 6);
+
+            g.setColor(t.state.equals("G") ? Color.GREEN : Color.RED);
+            g.fillOval(t.x - size/2, t.y - size/2, size, size);
         }
     }
 

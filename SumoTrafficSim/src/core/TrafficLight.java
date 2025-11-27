@@ -1,34 +1,32 @@
 package core;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class TrafficLight {
-    public double x, y;
-    public String state = "R";
+    public int x, y;
+    public String state = "R";   // R = Red, G = Green
+    public double timer = 0;     // Time since last toggle
 
-    public TrafficLight(double x, double y) {
+    public final double greenDuration = 3.0;   // seconds
+    public final double redDuration   = 3.0;   // seconds
+    
+    // offset relative to node
+    public int offsetX = 15;
+    public int offsetY = -15;
+
+    public TrafficLight(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
-    Image image;
-	
-//	public TrafficLight(double x1, double y1) {
-//		super(x1, y1);
-//		try {
-//			this.image = ImageIO.read(new File("img/greenlight.png"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	public void draw(Graphics g) {
-//		g.drawImage(this.image, (int)(this.x - 10), (int)(this.y - 10), 20, 20, null);
-//	}
-}
 
+    public void update(double dt) {
+        timer += dt;
+
+        if (state.equals("G") && timer >= greenDuration) {
+            state = "R";
+            timer = 0;
+        }
+        else if (state.equals("R") && timer >= redDuration) {
+            state = "G";
+            timer = 0;
+        }
+    }
+}
