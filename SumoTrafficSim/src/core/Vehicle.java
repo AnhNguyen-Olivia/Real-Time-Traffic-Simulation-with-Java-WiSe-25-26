@@ -13,6 +13,7 @@ public class Vehicle {
     
     public double stopDistance = 40;   // pixels before node to stop
 
+
     public Vehicle(int roadIndex, double speed, Color c) {
         this.roadIndex = roadIndex;
         this.speed = speed;
