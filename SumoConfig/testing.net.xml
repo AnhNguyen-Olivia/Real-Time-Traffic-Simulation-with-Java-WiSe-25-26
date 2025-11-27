@@ -4,11 +4,11 @@
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="E:\Real-Time-Traffic-Simulation-with-Java-WiSe-25-26\SumoConfig\testing.net.xml"/>
+        <sumo-net-file value="SumoConfig\testing.net.xml"/>
     </input>
 
     <output>
-        <output-file value="E:\Real-Time-Traffic-Simulation-with-Java-WiSe-25-26\SumoConfig\testing.net.xml"/>
+        <output-file value="SumoConfig\testing.net.xml"/>
     </output>
 
     <processing>
