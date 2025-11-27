@@ -34,7 +34,7 @@ public class SimulationEngine {
         nodes.add(right);
         nodes.add(top);
         nodes.add(bottom);
-        nodes.add(center);
+//        nodes.add(center);
 
         // Build connected roads
         roads.add(new Road(left, center));
@@ -60,12 +60,22 @@ public class SimulationEngine {
     public void stop() { running = false; }
 
     public void addVehicle() {
-        if (roads.isEmpty()) return;
 
-        int idx = (int)(Math.random() * roads.size());
+        List<Road> entryRoads = getEntryRoads();
+        if (entryRoads.isEmpty()) return;
+
+        Road r = entryRoads.get((int)(Math.random() * entryRoads.size()));
+
+        // Get index
+        int roadIndex = roads.indexOf(r);
+
+        // Create a vehicle at the START of that road
         Color c = new Color((float)Math.random(), (float)Math.random(), (float)Math.random());
+        Vehicle v = new Vehicle(roadIndex, 120, c);
 
-        vehicles.add(new Vehicle(idx, 120, c));           			 //adjust speed 
+        v.t = 0;  // force start at start of road
+
+        vehicles.add(v);
     }
 
     public void updateVehicles(double dt) {
@@ -172,6 +182,19 @@ public class SimulationEngine {
             t.update(dt);
         }
     }
+    
+    public List<Road> getEntryRoads() {
+        List<Road> entry = new ArrayList<>();
+
+        for (Road r : roads) {
+            // Center node is always (550, 300)
+            if (!(r.start.x == 550 && r.start.y == 300)) {
+                entry.add(r);   // Only add roads that start outside the intersection
+            }
+        }
+        return entry;
+    }
+
 }
 
 
