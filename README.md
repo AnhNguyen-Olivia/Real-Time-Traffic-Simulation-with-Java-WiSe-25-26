@@ -16,10 +16,33 @@ It simulates:
 - A GUI built using Java Swing (similar to SUMO-GUI)  
 - Real-time behavior controlled by a Swing `Timer`
 
+## Project Structure
+
+```bash
+Real-Time-Traffic-Simulation-with-Java-WiSe-25-26
+├───Demo_video
+├───SumoConfig
+└───SumoTrafficSim
+    ├───.settings
+    ├───bin
+    │   ├───core
+    │   ├───gui
+    │   ├───test
+    │   └───wrapper
+    ├───img
+    ├───lib
+    └───src
+        ├───core
+        ├───gui
+        ├───test
+        └───wrapper
+```
+
 ## Installation
 
-- JavaSE-11
-- SUMO-gui
+- JavaSE-21 or higher
+- SUMO 1.25.0
+- TraaS library
 - Eclipse IDE
 
 ---
@@ -53,25 +76,18 @@ It simulates:
 
 ## Technology Stack Summary
 
-### Languages
+### Programming Language and Frameworks
 
-- [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white&style=flat-square)](https://www.oracle.com/java/technologies/downloads/)[![version 25](https://img.shields.io/badge/version_25-555?style=flat-square)](https://www.oracle.com/java/technologies/downloads/)
+- Java 25/ Java SE
+- Java Swing for GUI development
 
 ### Tools and IDE
 
-- [![Eclipse](https://img.shields.io/badge/Eclipse-FE7A16.svg?logo=Eclipse&logoColor=white&style=flat-square)](https://eclipseide.org/)[![v2025--09](https://img.shields.io/badge/v2025--09-555?style=flat-square)](https://eclipseide.org/)
-
-- [![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white&style=flat-square)](https://code.visualstudio.com/)[![v1.106](https://img.shields.io/badge/v1.106-555?style=flat-square)](https://code.visualstudio.com/)
-
-- [![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff&style=flat-square)](https://git-scm.com/)[![v2.52.0](https://img.shields.io/badge/v2.52.0-555?style=flat-square)](https://git-scm.com/)
-
-- [![SUMO](https://img.shields.io/badge/SUMO-green?logo=Java&logoColor=orange&style=flat-square)](https://sumo.dlr.de/docs/index.html)[![v1.25.0](https://img.shields.io/badge/v1.25.0-555?style=flat-square)](https://sumo.dlr.de/docs/index.html)
-
-- [![TraaS](https://img.shields.io/badge/TraaS-green?logo=Java&logoColor=orange&style=flat-square)](https://sumo.dlr.de/docs/TraCI/TraaS.html)
-
-- [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white&style=flat-square)](https://github.com/AnhNguyen-Olivia/Real-Time-Traffic-Simulation-with-Java-WiSe-25-26)
-
-- [![Static Badge](https://img.shields.io/badge/Java_Swing-blue?logo=Java&logoColor=orange&style=flat-square)](https://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html)
+- SUMO 1.25.0
+- TraaS library
+- Eclipse IDE version 2025-09
+- Git + Github for version control
+- Visual Studio Code version 1.106
 
 ---
 
@@ -117,6 +133,12 @@ It simulates:
 - [ ] Final user guide + installation section
 - [ ] Presentation preparation
 - [ ] Team reflection & clean repository
+
+## Video Demo
+
+- For demostation the connection see the [SumoConnectionDemo.mkv](Demo_video/SumoConnectionDemo.mkv).
+
+- For GUI demo see the [GUI_Demo.mkv](Demo_video/GUI_Demo.mkv).
 
 ## License
 
