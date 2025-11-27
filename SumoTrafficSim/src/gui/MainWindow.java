@@ -82,10 +82,7 @@ public class MainWindow extends JFrame {
         add(statusBar, BorderLayout.SOUTH);
 
         setVisible(true);
-<<<<<<< HEAD
         setResizable(false);
-=======
->>>>>>> 54dcc5c33631a5885e684e358a4bd1dcc53eb177
     }
 
     public static void main(String[] args) {
