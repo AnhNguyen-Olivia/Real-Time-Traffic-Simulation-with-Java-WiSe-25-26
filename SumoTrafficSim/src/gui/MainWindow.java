@@ -50,9 +50,6 @@ public class MainWindow extends JFrame {
         setSize(1400, 850);
         setLocationRelativeTo(null); // center on screen
 
-        // ----------------------------
-        // MAIN LAYOUT
-        // ----------------------------
         setLayout(new BorderLayout());
 
         // Create map
@@ -67,16 +64,10 @@ public class MainWindow extends JFrame {
         // Dashboard on top
         DashboardPanel dashboardPanel = new DashboardPanel(mapPanel);
 
-        // ----------------------------
-        // ADD TO WINDOW
-        // ----------------------------
         add(controlPanel, BorderLayout.WEST);   // sidebar
         add(mapPanel, BorderLayout.CENTER);     // main drawing area
         add(dashboardPanel, BorderLayout.NORTH);// top bar
 
-        // ----------------------------
-        // OPTIONAL: Status bar at bottom
-        // ----------------------------
         JLabel statusBar = new JLabel(" Ready");
         statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         add(statusBar, BorderLayout.SOUTH);

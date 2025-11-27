@@ -10,6 +10,8 @@ public class Vehicle {
     public double speed;      // speed per update
 
     public double x, y;       // actual coordinates
+    
+    public double stopDistance = 40;   // pixels before node to stop
 
     public Vehicle(int roadIndex, double speed, Color c) {
         this.roadIndex = roadIndex;
