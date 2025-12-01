@@ -69,21 +69,21 @@ public class LaneManagerWrapper {
     //     return busyLanes;
     // }
 
-    public List<LaneWrapper> getHighOccupancyLanes(double occupancyThreshold) throws Exception {
-        if (occupancyThreshold < 0 || occupancyThreshold > 1) {
-            throw new IllegalArgumentException("Occupancy threshold must be between 0 and 1");
-        }
+    // public List<LaneWrapper> getHighOccupancyLanes(double occupancyThreshold) throws Exception {
+    //     if (occupancyThreshold < 0 || occupancyThreshold > 1) {
+    //         throw new IllegalArgumentException("Occupancy threshold must be between 0 and 1");
+    //     }
         
-        List<LaneWrapper> highOccupancyLanes = new ArrayList<>();
-        List<String> laneIds = getAllLaneIds();
+    //     List<LaneWrapper> highOccupancyLanes = new ArrayList<>();
+    //     List<String> laneIds = getAllLaneIds();
         
-        for (String laneId : laneIds) {
-            LaneWrapper lane = getLane(laneId);
-            if (lane.getOccupancy() >= occupancyThreshold) {
-                highOccupancyLanes.add(lane);
-            }
-        }
+    //     for (String laneId : laneIds) {
+    //         LaneWrapper lane = getLane(laneId);
+    //         if (lane.getOccupancy() >= occupancyThreshold) {
+    //             highOccupancyLanes.add(lane);
+    //         }
+    //     }
         
-        return highOccupancyLanes;
-    }
+    //     return highOccupancyLanes;
+    // }
 }
