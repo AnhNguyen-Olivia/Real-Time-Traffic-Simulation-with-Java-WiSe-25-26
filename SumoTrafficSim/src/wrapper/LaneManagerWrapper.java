@@ -33,41 +33,41 @@ public class LaneManagerWrapper {
         return lanes;
     }
 
-    public List<LaneWrapper> getCongestedLanes(double speedThreshold) throws Exception {
-        if (speedThreshold < 0) {
-            throw new IllegalArgumentException("Speed threshold must be non-negative");
-        }
+    // public List<LaneWrapper> getCongestedLanes(double speedThreshold) throws Exception {
+    //     if (speedThreshold < 0) {
+    //         throw new IllegalArgumentException("Speed threshold must be non-negative");
+    //     }
         
-        List<LaneWrapper> congestedLanes = new ArrayList<>();
-        List<String> laneIds = getAllLaneIds();
+    //     List<LaneWrapper> congestedLanes = new ArrayList<>();
+    //     List<String> laneIds = getAllLaneIds();
         
-        for (String laneId : laneIds) {
-            LaneWrapper lane = getLane(laneId);
-            if (lane.isCongested(speedThreshold)) {
-                congestedLanes.add(lane);
-            }
-        }
+    //     for (String laneId : laneIds) {
+    //         LaneWrapper lane = getLane(laneId);
+    //         if (lane.isCongested(speedThreshold)) {
+    //             congestedLanes.add(lane);
+    //         }
+    //     }
         
-        return congestedLanes;
-    }
+    //     return congestedLanes;
+    // }
 
-    public List<LaneWrapper> getBusyLanes(int vehicleCountThreshold) throws Exception {
-        if (vehicleCountThreshold < 0) {
-            throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
-        }
+    // public List<LaneWrapper> getBusyLanes(int vehicleCountThreshold) throws Exception {
+    //     if (vehicleCountThreshold < 0) {
+    //         throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
+    //     }
         
-        List<LaneWrapper> busyLanes = new ArrayList<>();
-        List<String> laneIds = getAllLaneIds();
+    //     List<LaneWrapper> busyLanes = new ArrayList<>();
+    //     List<String> laneIds = getAllLaneIds();
         
-        for (String laneId : laneIds) {
-            LaneWrapper lane = getLane(laneId);
-            if (lane.getVehicleCount() >= vehicleCountThreshold) {
-                busyLanes.add(lane);
-            }
-        }
+    //     for (String laneId : laneIds) {
+    //         LaneWrapper lane = getLane(laneId);
+    //         if (lane.getVehicleCount() >= vehicleCountThreshold) {
+    //             busyLanes.add(lane);
+    //         }
+    //     }
         
-        return busyLanes;
-    }
+    //     return busyLanes;
+    // }
 
     public List<LaneWrapper> getHighOccupancyLanes(double occupancyThreshold) throws Exception {
         if (occupancyThreshold < 0 || occupancyThreshold > 1) {
