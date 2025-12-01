@@ -31,9 +31,9 @@ public class EdgeWrapper {
     //     return (double) connection.do_job_get(Edge.getMaxSpeed(id));
     // }
 
-    public boolean isCongested(double speedThreshold) throws Exception {
-        return getAverageSpeed() < speedThreshold;
-    }
+    // public boolean isCongested(double speedThreshold) throws Exception {
+    //     return getAverageSpeed() < speedThreshold;
+    // }
 
     public String getId() {
         return id;
