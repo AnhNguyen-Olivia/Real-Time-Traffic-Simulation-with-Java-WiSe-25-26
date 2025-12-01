@@ -47,13 +47,13 @@ public class LaneWrapper {
         return (int) connection.do_job_get(Lane.getLastStepHaltingNumber(id));
     }
 
-    public double getOccupancy() throws Exception {
-        return (double) connection.do_job_get(Lane.getLastStepOccupancy(id));
-    }
+    // public double getOccupancy() throws Exception {
+    //     return (double) connection.do_job_get(Lane.getLastStepOccupancy(id));
+    // }
 
-    public boolean isCongested(double speedThreshold) throws Exception {
-        return getAverageSpeed() < speedThreshold;
-    }
+    // public boolean isCongested(double speedThreshold) throws Exception {
+    //     return getAverageSpeed() < speedThreshold;
+    // }
 
     public String getId() {
         return id;
