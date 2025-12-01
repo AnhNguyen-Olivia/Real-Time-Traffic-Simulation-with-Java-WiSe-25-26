@@ -33,39 +33,39 @@ public class EdgeManagerWrapper {
         return edges;
     }
 
-    public List<EdgeWrapper> getCongestedEdges(double speedThreshold) throws Exception {
-        if (speedThreshold < 0) {
-            throw new IllegalArgumentException("Speed threshold must be non-negative");
-        }
+    // public List<EdgeWrapper> getCongestedEdges(double speedThreshold) throws Exception {
+    //     if (speedThreshold < 0) {
+    //         throw new IllegalArgumentException("Speed threshold must be non-negative");
+    //     }
         
-        List<EdgeWrapper> congestedEdges = new ArrayList<>();
-        List<String> edgeIds = getAllEdgeIds();
+    //     List<EdgeWrapper> congestedEdges = new ArrayList<>();
+    //     List<String> edgeIds = getAllEdgeIds();
         
-        for (String edgeId : edgeIds) {
-            EdgeWrapper edge = getEdge(edgeId);
-            if (edge.isCongested(speedThreshold)) {
-                congestedEdges.add(edge);
-            }
-        }
+    //     for (String edgeId : edgeIds) {
+    //         EdgeWrapper edge = getEdge(edgeId);
+    //         if (edge.isCongested(speedThreshold)) {
+    //             congestedEdges.add(edge);
+    //         }
+    //     }
         
-        return congestedEdges;
-    }
+    //     return congestedEdges;
+    // }
 
-    public List<EdgeWrapper> getBusyEdges(int vehicleCountThreshold) throws Exception {
-        if (vehicleCountThreshold < 0) {
-            throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
-        }
+    // public List<EdgeWrapper> getBusyEdges(int vehicleCountThreshold) throws Exception {
+    //     if (vehicleCountThreshold < 0) {
+    //         throw new IllegalArgumentException("Vehicle count threshold must be non-negative");
+    //     }
         
-        List<EdgeWrapper> busyEdges = new ArrayList<>();
-        List<String> edgeIds = getAllEdgeIds();
+    //     List<EdgeWrapper> busyEdges = new ArrayList<>();
+    //     List<String> edgeIds = getAllEdgeIds();
         
-        for (String edgeId : edgeIds) {
-            EdgeWrapper edge = getEdge(edgeId);
-            if (edge.getVehicleCount() >= vehicleCountThreshold) {
-                busyEdges.add(edge);
-            }
-        }
+    //     for (String edgeId : edgeIds) {
+    //         EdgeWrapper edge = getEdge(edgeId);
+    //         if (edge.getVehicleCount() >= vehicleCountThreshold) {
+    //             busyEdges.add(edge);
+    //         }
+    //     }
         
-        return busyEdges;
-    }
+    //     return busyEdges;
+    // }
 }
