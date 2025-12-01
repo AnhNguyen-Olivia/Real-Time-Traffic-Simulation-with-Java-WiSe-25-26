@@ -33,39 +33,39 @@ public class RouteManagerWrapper {
         return routes;
     }
 
-    public List<RouteWrapper> getRoutesContainingEdge(String edgeId) throws Exception {
-        if (edgeId == null || edgeId.isEmpty()) {
-            throw new IllegalArgumentException("Edge ID cannot be null or empty");
-        }   
+    // public List<RouteWrapper> getRoutesContainingEdge(String edgeId) throws Exception {
+    //     if (edgeId == null || edgeId.isEmpty()) {
+    //         throw new IllegalArgumentException("Edge ID cannot be null or empty");
+    //     }   
         
-        List<RouteWrapper> matchingRoutes = new ArrayList<>();
-        List<String> routeIds = getAllRouteIds();
+    //     List<RouteWrapper> matchingRoutes = new ArrayList<>();
+    //     List<String> routeIds = getAllRouteIds();
         
-        for (String routeId : routeIds) {
-            RouteWrapper route = getRoute(routeId);
-            if (route.containsEdge(edgeId)) {
-                matchingRoutes.add(route);
-            }
-        }
+    //     for (String routeId : routeIds) {
+    //         RouteWrapper route = getRoute(routeId);
+    //         if (route.containsEdge(edgeId)) {
+    //             matchingRoutes.add(route);
+    //         }
+    //     }
         
-        return matchingRoutes;
-    }
+    //     return matchingRoutes;
+    // }
 
-    public List<RouteWrapper> getLongRoutes(int minEdgeCount) throws Exception {
-        if (minEdgeCount < 0) {
-            throw new IllegalArgumentException("Minimum edge count must be non-negative");
-        }
+    // public List<RouteWrapper> getLongRoutes(int minEdgeCount) throws Exception {
+    //     if (minEdgeCount < 0) {
+    //         throw new IllegalArgumentException("Minimum edge count must be non-negative");
+    //     }
         
-        List<RouteWrapper> longRoutes = new ArrayList<>();
-        List<String> routeIds = getAllRouteIds();
+    //     List<RouteWrapper> longRoutes = new ArrayList<>();
+    //     List<String> routeIds = getAllRouteIds();
         
-        for (String routeId : routeIds) {
-            RouteWrapper route = getRoute(routeId);
-            if (route.getEdgeCount() >= minEdgeCount) {
-                longRoutes.add(route);
-            }
-        }
+    //     for (String routeId : routeIds) {
+    //         RouteWrapper route = getRoute(routeId);
+    //         if (route.getEdgeCount() >= minEdgeCount) {
+    //             longRoutes.add(route);
+    //         }
+    //     }
         
-        return longRoutes;
-    }
+    //     return longRoutes;
+    // }
 }
