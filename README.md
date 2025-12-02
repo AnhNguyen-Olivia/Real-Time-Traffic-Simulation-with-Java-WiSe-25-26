@@ -101,8 +101,9 @@ Real-Time-Traffic-Simulation-with-Java-WiSe-25-26
 |Nov 28 – Dec 14 | Milestone 2: Functional Prototype | Live demo, core features                     |
 |Dec 15 – Jan 18 | Milestone 3: Finalize & Submission | Full GUI, export features, documentation     |
 
-### **Timeline Team role Milestone 2
+### **Timeline & Team roles Milestone 2
 |Dates            |Tasks                        |Member                |
+|----------------|------------------------------------|----------------------------------------------|
 |03/12/2025 - 07/12/2025 | Working Application: Live SUMO connection     | Nguyen Thuy Anh        |
 |03/12/2025 - 07/12/2025 | Working Application: Vehicle injection        | Nguyen Ho Tuyet Phuong    |
 |03/12/2025 - 07/12/2025 | Working Application: Traffic light control    | Pham Tran Minh Anh         |
