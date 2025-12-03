@@ -43,37 +43,49 @@ public class ControlPanel extends JPanel {
 
         add(createButton("STOP", new Color(226, 70, 60), Color.WHITE, e -> map.getEngine().stop()));
         add(Box.createRigidArea(new Dimension(0, 16)));
-
+        
         add(createButton("ADD VEHICLE", new Color(244, 229, 66), Color.BLACK, e -> map.getEngine().addVehicle()));
-        add(Box.createRigidArea(new Dimension(0, 16)));
-
-        add(createButton("<html><center>TOGGLE<br>TRAFFIC LIGHTS</center></html>", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
         add(Box.createRigidArea(new Dimension(0, 32)));
-
-        // Add glue between major sections
-        add(Box.createVerticalGlue());
-
-        // Map Editor Tools header
-        JLabel mapToolsHeader = new JLabel("Map Editor Tools");
-        mapToolsHeader.setFont(new Font("Arial", Font.BOLD, 16));
-        mapToolsHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(mapToolsHeader);
+        
+        // SUMO section
+        JLabel sumoHeader = new JLabel("SUMO Integration");
+        sumoHeader.setFont(new Font("Arial", Font.BOLD, 16));
+        sumoHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(sumoHeader);
         add(Box.createRigidArea(new Dimension(0, 18)));
-
-        // Map editor tool buttons - spaced out
-        add(createButton("ROAD", Color.BLACK, Color.WHITE, e -> map.setTool(MapPanel.Tool.ROAD)));
-        add(Box.createRigidArea(new Dimension(0, 12)));
-
-        add(createButton("INTERSECTION", Color.BLACK, Color.WHITE, e -> map.setTool(MapPanel.Tool.INTERSECTION)));
-        add(Box.createRigidArea(new Dimension(0, 12)));
-
-        add(createButton("TRAFFIC LIGHT", Color.BLACK, Color.WHITE, e -> map.setTool(MapPanel.Tool.TL)));
-        add(Box.createRigidArea(new Dimension(0, 12)));
-
-        add(createButton("SELECT/MOVE", new Color(35, 217, 83), Color.BLACK, e -> map.setTool(MapPanel.Tool.SELECT)));
-        add(Box.createRigidArea(new Dimension(0, 12)));
-
-        add(createButton("DELETE", new Color(226, 70, 60), Color.WHITE, e -> map.setTool(MapPanel.Tool.DELETE)));
+        
+        add(createButton("<html><center>LOAD<br>SUMO NETWORK</center></html>", new Color(0, 128, 128), Color.WHITE, e -> {
+            try {
+                String netXmlPath = "D:\\\\An\\\\OOP Java\\\\Real-Time-Traffic-Simulation-with-Java-WiSe-25-26\\\\SumoConfig\\\\testing.net.xml";
+                map.getEngine().loadFromSumo(netXmlPath);
+                map.repaint();
+                JOptionPane.showMessageDialog(this, 
+                    "✓ SUMO network loaded successfully!\\n✓ Roads and traffic lights imported", 
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error loading SUMO network:\\n" + ex.getMessage(), 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }));
+        add(Box.createRigidArea(new Dimension(0, 16)));
+        
+        add(createButton("<html><center>CONNECT<br>TO SUMO</center></html>", new Color(255, 128, 0), Color.WHITE, e -> {
+            try {
+                String sumoExe = "sumo-gui"; // or "sumo" for non-GUI
+                String configFile = "D:\\\\An\\\\OOP Java\\\\Real-Time-Traffic-Simulation-with-Java-WiSe-25-26\\\\SumoConfig\\\\testing.sumocfg";
+                map.getEngine().connectToSumo(sumoExe, configFile);
+                JOptionPane.showMessageDialog(this, 
+                    "✓ Connected to SUMO via TraCI!\\n✓ Real-time simulation active", 
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error connecting to SUMO:\\n" + ex.getMessage() + "\\n\\nMake sure SUMO is installed and in PATH.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }));
 
         // Glue at the bottom for final padding
         add(Box.createVerticalGlue());

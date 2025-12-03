@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Vehicle {
 
+    public String id;         // SUMO vehicle ID
     public Color color;
     public int roadIndex;     // current road
     public double t;          // position (0 → 1)

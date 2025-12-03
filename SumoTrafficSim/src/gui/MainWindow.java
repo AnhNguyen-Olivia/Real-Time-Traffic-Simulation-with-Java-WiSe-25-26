@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
         // Create map
         MapPanel mapPanel = new MapPanel();
         mapPanel.getEngine().start();
-        mapPanel.getEngine().addVehicle();  // add at least one vehicle
+        // Initial vehicle can be added manually by user
 
 
         // Left control panel

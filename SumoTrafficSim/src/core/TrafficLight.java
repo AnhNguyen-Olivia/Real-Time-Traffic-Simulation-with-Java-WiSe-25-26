@@ -1,6 +1,7 @@
 package core;
 
 public class TrafficLight {
+    public String id;            // SUMO traffic light ID
     public int x, y;
     public String state = "R";   // R = Red, G = Green
     public double timer = 0;     // Time since last toggle
