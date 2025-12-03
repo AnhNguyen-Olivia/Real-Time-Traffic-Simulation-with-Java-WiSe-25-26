@@ -1,123 +1,91 @@
 package gui;
 
-import core.SimulationEngine;
-import core.Vehicle;
-import core.TrafficLight;
-import core.Road;
-import core.Node;
+import core.*;
 
 import javax.swing.*;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class MapPanel extends JPanel {
 
     private final SimulationEngine engine = new SimulationEngine();
 
     private Node startNode;
-    private Node endNode;
-
     private int dragX, dragY;
     private boolean isDrawingRoad = false;
 
-    // Map Editing Tools
-    public enum Tool {
-        NONE, ROAD, INTERSECTION, TL, SELECT, DELETE
-    }
+    public enum Tool { NONE, ROAD, INTERSECTION, TL, SELECT, DELETE }
+    private Tool currentTool = Tool.NONE;
 
-    private Tool currentTool = Tool.INTERSECTION;
-
-    // Car image for vehicle rendering
-    private BufferedImage carImage;
-    private BufferedImage trafficLightImage;
-
-    public void setTool(Tool tool) {
-        this.currentTool = tool;
-    }
+    public void setTool(Tool tool) { this.currentTool = tool; }
 
     public MapPanel() {
         setBackground(new Color(0, 204, 0));
 
-//        try {
-//            carImage = ImageIO.read(new File("img/car.jpg"));  // Adjust path as needed
-//        } catch (IOException e) {
-//            System.err.println("Failed to load car image.");
-//            e.printStackTrace();
-//        }
-//        
-//        try {
-//            trafficLightImage = ImageIO.read(new File("img/greenlight.jpg"));
-//        } catch (IOException | NullPointerException e) {
-//            System.err.println("Failed to load traffic light image.");
-//            e.printStackTrace();
-//        }
+        // ----------- AUTO LOAD SUMO NETWORK --------------
+        String path = "C:/Users/ASUS/Documents/Real-time Traffic Simulation Milestone 1/Real-time Traffic Simulation Java Project/SumoConfig/testing.net.xml";
 
-        // Smooth animation: 30 FPS
-        new Timer(33, e -> updateAndRepaint()).start();
+        if (new File(path).exists()) {
+            engine.loadSumoMap(path);
+            System.out.println("SUMO map loaded: " + path);
+        } else {
+            System.err.println("SUMO map not found.");
+        }
+        //--------------------------------------------------
 
-        // MOUSE LISTENERS
+        new Timer(33, e -> repaintTick()).start();
+
+        // MOUSE HANDLERS
         addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                handleMousePress(e);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                handleMouseRelease(e);
-            }
+            @Override public void mousePressed(MouseEvent e) { onPress(e); }
+            @Override public void mouseReleased(MouseEvent e) { onRelease(e); }
         });
 
         addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                handleMouseDrag(e);
-            }
+            @Override public void mouseDragged(MouseEvent e) { onDrag(e); }
         });
     }
 
-    public SimulationEngine getEngine() {
-        return engine;
+    private void repaintTick() {
+        engine.update();
+        repaint();
     }
 
-    private void handleMousePress(MouseEvent e) {
+    private void onPress(MouseEvent e) {
+        int x = e.getX(), y = e.getY();
 
-        if (currentTool == Tool.ROAD) {
+        switch (currentTool) {
 
-            // SNAP start point
-            Node snap = engine.getClosestNode(e.getX(), e.getY());
+            case ROAD:
+                startNode = engine.getClosestNode(x, y);
+                if (startNode == null) {
+                    startNode = new Node("n" + engine.nodes.size(), x, y);
+                    engine.nodes.add(startNode);
+                }
+                dragX = x;
+                dragY = y;
+                isDrawingRoad = true;
+                break;
 
-            if (snap != null) {
-                startNode = snap;
-            } else {
-                startNode = new Node(e.getX(), e.getY());
-                engine.nodes.add(startNode);
-            }
+            case INTERSECTION:
+                Node n = new Node("n" + engine.nodes.size(), x, y);
+                engine.nodes.add(n);
+                repaint();
+                break;
 
-            dragX = e.getX();
-            dragY = e.getY();
-            isDrawingRoad = true;
-        } else if (currentTool == Tool.INTERSECTION) {
-            // Create a node
-            Node n = new Node(e.getX(), e.getY());
-            engine.nodes.add(n);
+            case TL:
+                engine.trafficLights.add(new TrafficLight(x, y)); 
+                repaint();
+                break;
 
-            // Create a traffic light at that node
-            engine.trafficLights.add(new TrafficLight(e.getX(), e.getY()));
-
-            repaint();
-        } else if (currentTool == Tool.TL) {
-            engine.trafficLights.add(new TrafficLight(e.getX(), e.getY()));
-            repaint();
+            default:
+                break;
         }
     }
 
-    private void handleMouseDrag(MouseEvent e) {
+    private void onDrag(MouseEvent e) {
         if (isDrawingRoad && currentTool == Tool.ROAD) {
             dragX = e.getX();
             dragY = e.getY();
@@ -125,96 +93,94 @@ public class MapPanel extends JPanel {
         }
     }
 
-    private void handleMouseRelease(MouseEvent e) {
-
+    private void onRelease(MouseEvent e) {
         if (isDrawingRoad && currentTool == Tool.ROAD) {
 
-            Node snap = engine.getClosestNode(e.getX(), e.getY());
-
-            if (snap != null) {
-                endNode = snap;
-            } else {
-                endNode = new Node(e.getX(), e.getY());
+            Node endNode = engine.getClosestNode(e.getX(), e.getY());
+            if (endNode == null) {
+                endNode = new Node("n" + engine.nodes.size(), e.getX(), e.getY());
                 engine.nodes.add(endNode);
             }
 
-            engine.roads.add(new Road(startNode, endNode));
+            // Manual roads use simple fallback road creation
+            Road r = new Road("r" + engine.roads.size(), startNode, endNode);
+            engine.roads.add(r);
+
             isDrawingRoad = false;
             repaint();
         }
     }
 
-    private void updateAndRepaint() {
-        engine.update();
-        repaint();
-    }
+    public SimulationEngine getEngine() { return engine; }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
+
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        drawRoads(g2);
-        drawIntersections(g2);
+        drawSumoRoads(g2);
+        drawNodes(g2);
         drawLights(g2);
         drawVehicles(g2);
         drawPreviewRoad(g2);
     }
 
-    private void drawRoads(Graphics2D g) {
-        g.setStroke(new BasicStroke(80, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g.setColor(new Color(40, 40, 40));
+    // ---------- SUMO ROADS (LANE SHAPES) ------------------
+    private void drawSumoRoads(Graphics2D g) {
+        g.setStroke(new BasicStroke(12, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         for (Road r : engine.roads) {
-            g.drawLine(r.start.x, r.start.y, r.end.x, r.end.y);
-        }
-    }
+            for (Lane lane : r.lanes) {
+                g.setColor(new Color(40, 40, 40));   // asphalt
+                g.drawPolyline(lane.xs, lane.ys, lane.xs.length);
 
-    private void drawVehicles(Graphics2D g) {
-        int carWidth = 60;  
-        int carHeight = 30; 
-
-        for (Vehicle v : engine.vehicles) {
-            if (carImage != null) {
-                g.drawImage(carImage, (int) v.x - carWidth / 2, (int) v.y - carHeight / 2, carWidth, carHeight, this);
-            } else {
-                g.setColor(v.color);
-                g.fillOval((int) v.x - 6, (int) v.y - 6, 12, 12);
-                g.setColor(Color.BLACK);
-                g.drawOval((int) v.x - 6, (int) v.y - 6, 12, 12);
+                g.setColor(new Color(200, 200, 200, 120)); // centerline
+                g.setStroke(new BasicStroke(2));
+                g.drawPolyline(lane.xs, lane.ys, lane.xs.length);
             }
         }
     }
 
-    private void drawLights(Graphics2D g) {
-        for (TrafficLight t : engine.trafficLights) {
-            int size = 14;
-
-            g.setColor(Color.BLACK);
-            g.fillRoundRect(t.x - size/2 - 2, t.y - size/2 - 2, size + 4, size + 4, 6, 6);
-
-            g.setColor(t.state.equals("G") ? Color.GREEN : Color.RED);
-            g.fillOval(t.x - size/2, t.y - size/2, size, size);
+    // -------------------- INTERSECTIONS --------------------
+    private void drawNodes(Graphics2D g) {
+        for (Node n : engine.nodes) {
+            g.setColor(Color.WHITE);
+            g.fillOval(n.x - 4, n.y - 4, 8, 8);
+            g.setColor(Color.BLUE);
+            g.drawOval(n.x - 4, n.y - 4, 8, 8);
         }
     }
 
+    // -------------------- TRAFFIC LIGHTS -------------------
+    private void drawLights(Graphics2D g) {
+        for (TrafficLight t : engine.trafficLights) {
+
+            int lx = t.x, ly = t.y;
+
+            g.setColor(Color.BLACK);
+            g.fillRect(lx - 8, ly - 8, 16, 16);
+
+            g.setColor(t.state.equals("G") ? Color.GREEN : Color.RED);
+            g.fillOval(lx - 6, ly - 6, 12, 12);
+        }
+    }
+
+    // --------------------- VEHICLES ------------------------
+    private void drawVehicles(Graphics2D g) {
+        for (Vehicle v : engine.vehicles) {
+            g.setColor(v.color);
+            g.fillOval((int)v.x - 6, (int)v.y - 6, 12, 12);
+        }
+    }
+
+    // ------------------- PREVIEW MANUAL ROAD --------------
     private void drawPreviewRoad(Graphics2D g) {
         if (isDrawingRoad && currentTool == Tool.ROAD) {
             g.setColor(new Color(80, 130, 200));
-            g.setStroke(new BasicStroke(8));
+            g.setStroke(new BasicStroke(6));
             g.drawLine(startNode.x, startNode.y, dragX, dragY);
-        }
-    }
-
-    private void drawIntersections(Graphics2D g) {
-        for (Node n : engine.nodes) {
-            g.setColor(Color.WHITE);
-            g.fillOval(n.x - 5, n.y - 5, 10, 10);
-
-            g.setColor(Color.BLUE);
-            g.drawOval(n.x - 5, n.y - 5, 10, 10);
         }
     }
 }

@@ -47,7 +47,7 @@ public class ControlPanel extends JPanel {
         add(createButton("ADD VEHICLE", new Color(244, 229, 66), Color.BLACK, e -> map.getEngine().addVehicle()));
         add(Box.createRigidArea(new Dimension(0, 16)));
 
-        add(createButton("<html><center>TOGGLE<br>TRAFFIC LIGHTS</center></html>", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
+//        add(createButton("<html><center>TOGGLE<br>TRAFFIC LIGHTS</center></html>", new Color(41, 107, 231), Color.WHITE, e -> map.getEngine().toggleLights()));
         add(Box.createRigidArea(new Dimension(0, 32)));
 
         // Add glue between major sections

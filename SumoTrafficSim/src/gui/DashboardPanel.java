@@ -26,7 +26,7 @@ public class DashboardPanel extends JPanel {
 
     private void update(SimulationEngine engine) {
         timeLbl.setText("Time: " + String.format("%.1f", engine.simTime));
-        vehLbl.setText("Vehicles: " + engine.getVehicles().size());
+//        vehLbl.setText("Vehicles: " + engine.getVehicles().size());
     }
 
     private void styleLabel(JLabel lbl) {
